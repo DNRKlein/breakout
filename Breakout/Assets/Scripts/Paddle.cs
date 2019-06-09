@@ -9,6 +9,10 @@ public class Paddle : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed = 5.0f;
+    [SerializeField]
+    private float minX = -1.0f;
+    [SerializeField]
+    private float maxX = 1.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +28,16 @@ public class Paddle : MonoBehaviour
 
     //called on physics step (default 50 times per second)
     void FixedUpdate() {
-        rigidBody2D.MovePosition(rigidBody2D.position + new Vector2(paddleMovement*moveSpeed,0) * Time.fixedDeltaTime);
+        Move();
+    }
+
+
+    private void Move() {
+        Vector2 position = rigidBody2D.position + new Vector2(paddleMovement * moveSpeed, 0) * Time.fixedDeltaTime;
+        position.x = Mathf.Clamp(position.x, minX, maxX);
+        rigidBody2D.MovePosition(position);
+
+        Debug.Log("transform pos (" + transform.position.x + ", " + transform.position.y + ")");
+        Debug.Log("rigidbody pos (" + rigidBody2D.position.x + ", " + rigidBody2D.position.y + ")");
     }
 }
