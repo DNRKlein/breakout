@@ -877,7 +877,7 @@ PrefabInstance:
     - target: {fileID: 1394069312049012460, guid: 1ad0e99469c948f4fbeb65cedaeba58e,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.5
+      value: -4.5
       objectReference: {fileID: 0}
     - target: {fileID: 1394069312049012460, guid: 1ad0e99469c948f4fbeb65cedaeba58e,
         type: 3}
@@ -1496,11 +1496,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -2978661379383029288, guid: c0afc6f9f11a0ca4b972655bb97b6d1a,
-        type: 3}
-      propertyPath: paddle
-      value: 
-      objectReference: {fileID: 617218926}
     - target: {fileID: 1345447178141301704, guid: c0afc6f9f11a0ca4b972655bb97b6d1a,
         type: 3}
       propertyPath: m_Name
@@ -1511,6 +1506,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Ball
       objectReference: {fileID: 0}
+    - target: {fileID: -2978661379383029288, guid: c0afc6f9f11a0ca4b972655bb97b6d1a,
+        type: 3}
+      propertyPath: paddle
+      value: 
+      objectReference: {fileID: 617218926}
     - target: {fileID: 1345447178141301708, guid: c0afc6f9f11a0ca4b972655bb97b6d1a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1519,7 +1519,7 @@ PrefabInstance:
     - target: {fileID: 1345447178141301708, guid: c0afc6f9f11a0ca4b972655bb97b6d1a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.184
+      value: -4.184
       objectReference: {fileID: 0}
     - target: {fileID: 1345447178141301708, guid: c0afc6f9f11a0ca4b972655bb97b6d1a,
         type: 3}

@@ -6,17 +6,11 @@ public class Block : MonoBehaviour
 {
     [SerializeField]
     private int health = 1;
-    private int hitsTaken = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+    //This is a collision because the ball has a rigidbody and the block is not a trigger
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if(collision.gameObject.tag.Equals("Ball")) {
+            Destroy(gameObject);
+        }
     }
 }

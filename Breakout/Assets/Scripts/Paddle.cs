@@ -27,6 +27,8 @@ public class Paddle : MonoBehaviour
     }
 
     //called on physics step (default 50 times per second)
+    //im moving the paddle in fixedupdate because it has a rigidbody and rigidbody works with physics
+    //and thus should be done on the physics step
     void FixedUpdate() {
         Move();
     }
@@ -36,8 +38,5 @@ public class Paddle : MonoBehaviour
         Vector2 position = rigidBody2D.position + new Vector2(paddleMovement * moveSpeed, 0) * Time.fixedDeltaTime;
         position.x = Mathf.Clamp(position.x, minX, maxX);
         rigidBody2D.MovePosition(position);
-
-        Debug.Log("transform pos (" + transform.position.x + ", " + transform.position.y + ")");
-        Debug.Log("rigidbody pos (" + rigidBody2D.position.x + ", " + rigidBody2D.position.y + ")");
     }
 }
