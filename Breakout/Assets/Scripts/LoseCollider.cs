@@ -10,6 +10,8 @@ public class LoseCollider : MonoBehaviour
         levelManager = FindObjectOfType<LevelManager>();    
     }
     private void OnTriggerEnter2D(Collider2D collision) {
-        levelManager.LoadSceneByName("GameOver");
+        if("Ball".Equals(collision.gameObject.tag)) {
+            levelManager.LoadSceneByName("GameOver");
+        }
     }
 }
