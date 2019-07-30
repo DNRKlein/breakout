@@ -27,7 +27,8 @@ public class PowerupBlock : MonoBehaviour
 
             //Launches the powerup which will fall with gravity and instantiate it at the position of the block
             Debug.Log("Instantiate :" + powerup.name);
-            Instantiate(powerup);
+            //instantiate the powerup at the position of this block
+            Instantiate(powerup, transform.position, transform.rotation);
 
             Destroy(gameObject);
         }

@@ -13,6 +13,15 @@ public class ScalePowerup : Powerup
 
     //add 1 to the scale of the gameObject
     protected override void applyPowerup(GameObject gameObject) {
-        gameObject.transform.localScale += new Vector3(1, 0, 0);
+        gameObject.transform.localScale  += new Vector3(1, 0, 0);
+    }
+
+    //subtract 1 from the scale of the gameObject
+    protected override void undoPowerup(GameObject gameObject) {
+        gameObject.transform.localScale -= new Vector3(1, 0, 0);
+    }
+
+    protected override float getPowerupTime() {
+        return 10f;
     }
 }

@@ -9,14 +9,14 @@ public class Paddle : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed = 5.0f;
-    [SerializeField]
+   
     private float minX = -1.0f;
-    [SerializeField]
     private float maxX = 1.0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        calculateMinAndMaxX();
         rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -33,8 +33,16 @@ public class Paddle : MonoBehaviour
         Move();
     }
 
+    //the screen is from -4 to 4 in world space. the minX and maxX is calculated from the middle of the paddle
+    //so minX can be at most -4 + half of the paddle. By using the localScale.x we hold in account the possible scale powerup
+    public void calculateMinAndMaxX() {
+        minX = -4 + (gameObject.transform.localScale.x / 2);
+        maxX = 4 - (gameObject.transform.localScale.x / 2);
+    }
+
 
     private void Move() {
+        calculateMinAndMaxX();
         Vector2 position = rigidBody2D.position + new Vector2(paddleMovement * moveSpeed, 0) * Time.fixedDeltaTime;
         position.x = Mathf.Clamp(position.x, minX, maxX);
         rigidBody2D.MovePosition(position);
