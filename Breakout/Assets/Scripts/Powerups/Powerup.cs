@@ -4,12 +4,13 @@ using UnityEngine;
 
 public abstract class Powerup : MonoBehaviour
 {
+    private SpriteRenderer spriteRenderer;
 
     private bool applied = false;
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
-        
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     //When colliding with the paddle it needs to apply it's powerup to the paddle
@@ -30,12 +31,18 @@ public abstract class Powerup : MonoBehaviour
     IEnumerator applyPowerupForSecondsCoroutine(GameObject gameObjectToApply) {
         Debug.Log("Applying powerup");
         applyPowerup(gameObjectToApply);
+        makePowerupInvisible();
         yield return new WaitForSeconds(getPowerupTime());
         Debug.Log("Undoing powerup");
         undoPowerup(gameObjectToApply);
         Debug.Log("Destroying powerup gameobject");
 
         Destroy(gameObject);
+    }
+
+    //Made invisible by disabling the spriterenderer
+    private void makePowerupInvisible() {
+        spriteRenderer.enabled = false;
     }
 
     protected abstract void applyPowerup(GameObject gameObject);

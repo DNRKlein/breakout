@@ -5,9 +5,10 @@ using UnityEngine;
 public class ScalePowerup : Powerup
 {
     // Start is called before the first frame update
+    //base is in C# what super is in Java
     void Start()
     {
-        
+        base.Start();
     }
 
 
