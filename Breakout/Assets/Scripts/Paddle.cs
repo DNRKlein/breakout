@@ -9,6 +9,9 @@ public class Paddle : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed = 5.0f;
+
+    [SerializeField]
+    private TouchController touchController;
    
     private float minX = -1.0f;
     private float maxX = 1.0f;
@@ -23,7 +26,13 @@ public class Paddle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+#if UNITY_STANDALONE
         paddleMovement = Input.GetAxisRaw("Horizontal");
+#endif
+
+#if UNITY_ANDROID || UNITY_IOS
+        paddleMovement = touchController.getMovementTouchRaw();
+#endif
     }
 
     //called on physics step (default 50 times per second)

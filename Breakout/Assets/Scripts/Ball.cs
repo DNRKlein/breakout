@@ -11,6 +11,7 @@ public class Ball : MonoBehaviour
     [SerializeField] private Paddle paddle;
     [SerializeField] private float verticalSpeed = 10f;
     [SerializeField] AudioClip[] audioClips;
+    [SerializeField] TouchController touchController;
 
     //State
     private Vector2 paddleToBallVector;
@@ -42,11 +43,21 @@ public class Ball : MonoBehaviour
     //We're giving the ball a velocity which makes sense to me, since you just want it to move on it's own and not move it
     //by constantly setting its transform.position
     private void Launch() {
+#if UNITY_STANDALONE
         if(Input.GetKeyDown("space")) {
             float x = Random.Range(-3f, 3f);
             rigidbody2D.velocity = new Vector2(x, verticalSpeed);
             hasLaunched = true;
         }
+#endif
+
+#if UNITY_ANDROID || UNITY_IOS
+        if(touchController.launchBallControlIsTouched()) {
+            float x = Random.Range(-3f, 3f);
+            rigidbody2D.velocity = new Vector2(x, verticalSpeed);
+            hasLaunched = true;
+        }
+#endif
     }
 
     private void LockBallToPaddle() {
