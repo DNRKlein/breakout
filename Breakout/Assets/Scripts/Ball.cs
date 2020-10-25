@@ -11,11 +11,9 @@ public class Ball : MonoBehaviour
     [SerializeField] private Paddle paddle;
     [SerializeField] private float verticalSpeed = 10f;
     [SerializeField] AudioClip[] audioClips;
-    [SerializeField] TouchController touchController;
 
     //State
     private Vector2 paddleToBallVector;
-    private bool hasLaunched = false;
 
     //components
     private Rigidbody2D rigidbody2D;
@@ -27,37 +25,14 @@ public class Ball : MonoBehaviour
         rigidbody2D = GetComponent<Rigidbody2D>();
         paddleToBallVector = transform.position - paddle.transform.position;
         audioSource = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    //While ball also has a rigidbody it still moves in update, which i dont understand
-    //maybe setting its velocity is different because you set it once?
-    void Update() {
-        if(!hasLaunched) {
-            LockBallToPaddle();
-            Launch();
-        }
-        
+        LockBallToPaddle();
     }
 
     //We're giving the ball a velocity which makes sense to me, since you just want it to move on it's own and not move it
     //by constantly setting its transform.position
-    private void Launch() {
-#if UNITY_STANDALONE
-        if(Input.GetKeyDown("space")) {
-            float x = Random.Range(-3f, 3f);
-            rigidbody2D.velocity = new Vector2(x, verticalSpeed);
-            hasLaunched = true;
-        }
-#endif
-
-#if UNITY_ANDROID || UNITY_IOS
-        if(touchController.launchBallControlIsTouched()) {
-            float x = Random.Range(-3f, 3f);
-            rigidbody2D.velocity = new Vector2(x, verticalSpeed);
-            hasLaunched = true;
-        }
-#endif
+    public void Launch() {
+        float x = Random.Range(-3f, 3f);
+        rigidbody2D.velocity = new Vector2(x, verticalSpeed);     
     }
 
     private void LockBallToPaddle() {

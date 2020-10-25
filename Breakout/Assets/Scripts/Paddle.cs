@@ -9,9 +9,6 @@ public class Paddle : MonoBehaviour
 
     [SerializeField]
     private float moveSpeed = 5.0f;
-
-    [SerializeField]
-    private TouchController touchController;
    
     private float minX = -1.0f;
     private float maxX = 1.0f;
@@ -19,20 +16,13 @@ public class Paddle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        calculateMinAndMaxX();
+        CalculateMinAndMaxX();
         rigidBody2D = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-#if UNITY_STANDALONE
-        paddleMovement = Input.GetAxisRaw("Horizontal");
-#endif
-
-#if UNITY_ANDROID || UNITY_IOS
-        paddleMovement = touchController.getMovementTouchRaw();
-#endif
     }
 
     //called on physics step (default 50 times per second)
@@ -42,16 +32,27 @@ public class Paddle : MonoBehaviour
         Move();
     }
 
+    public void StopMoving() {
+        paddleMovement = 0;
+    }
+
+    public void MoveLeft() {
+        paddleMovement = -1;
+    }
+
+    public void MoveRight() {
+        paddleMovement = 1;
+    }
+
     //the screen is from -4 to 4 in world space. the minX and maxX is calculated from the middle of the paddle
     //so minX can be at most -4 + half of the paddle. By using the localScale.x we hold in account the possible scale powerup
-    public void calculateMinAndMaxX() {
+    public void CalculateMinAndMaxX() {
         minX = -4 + (gameObject.transform.localScale.x / 2);
         maxX = 4 - (gameObject.transform.localScale.x / 2);
     }
-
-
+    
     private void Move() {
-        calculateMinAndMaxX();
+        CalculateMinAndMaxX();
         Vector2 position = rigidBody2D.position + new Vector2(paddleMovement * moveSpeed, 0) * Time.fixedDeltaTime;
         position.x = Mathf.Clamp(position.x, minX, maxX);
         rigidBody2D.MovePosition(position);
